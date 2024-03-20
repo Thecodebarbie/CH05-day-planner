@@ -29,24 +29,31 @@ $(function () {
 
   function handleSaveEvent(event) {
     var textareaEl
-    if ($(event.target).attr('class') === 'fas fa-save') {
-      // i element <i class="fas fa-save" aria-hidden="true"></i>
-      var iEl = $('event.target') //event target is current
-      textareaEl = iEl.parent().siblings(textarea)
+    var parentId
+    if ($(event.target).attr("class") === "fas fa-save") {
+      //<i class="fas fa-save" aria-hidden="true"></i>
+      var iEl = $(event.target) //event target is current
+      textareaEl=iEl.parent().siblings('textarea')
       console.log(iEl, "current button")
       console.log(textareaEl, "sibling of button")
+      parentId= $(event.target).parent().parent().attr("id")
     }
     else {
       // button <button class="btn saveBtn col-2 col-md-1" aria-label="save">
+      var buttonEl = $(event.target) //event target is current
+      textareaEl = buttonEl.siblings('textarea')
+      console.log(buttonEl, "current button")
+      console.log(textareaEl, "sibling of button")
+      parentId = $(event.target).parent().attr("id")
     }
+    localStorage.setItem(parentId, textareaEl.val())
 
-    var buttonEl = $('event.target') //event target is current
-    textareaEl = buttonEl.siblings(textarea)
-    console.log(buttonEl, "current button")
-    console.log(textareaEl, "sibling of button")
   }
 
-  saveBtnEl.on('click', handleSaveEvent)
+
+
+
+  saveBtnEl.on("click", handleSaveEvent)
 
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
