@@ -4,9 +4,28 @@
 $(function () {
   
   var currentDate = dayjs()
-  var currentHour = dayjs().hour()
+  var currentHour = dayjs().hour() // 0 to 23 military time
+  console.log(currentHour)
 var currentDayEl = $('#currentDay')
   
+currentDayEl.text(currentDate.format("dddd, MMMM DD"))
+
+// time block is from 9 to 17
+for(var i = 9; i < 18; i++){
+    var parentId =$("#hour-" + i) //parent selector
+     var textarea = parentId.children('textarea')
+    if(i===currentHour){ // for present
+      textarea.addClass('present')
+    }
+    else if(i < currentHour){ // for past
+      textarea.addClass('past')
+    }else{
+      // i > currentHour // for future
+      textarea.addClass('future')
+    }
+}
+
+
 
 
   // TODO: Add a listener for click events on the save button. This code should
